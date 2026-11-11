@@ -16,7 +16,7 @@ O projeto é uma fundação em construção. O estado de cada capacidade (provad
 
 Passo zero: pergunte se ela já tem um servidor (VPS).
 
-- Se não tem: basta uma VPS com Ubuntu 22.04 ou mais novo. Sobre tamanho da máquina, diga só o que o README mediu. A VPS recomendada é a da ${p.nome}, parceira de infraestrutura do projeto: ${p.url}
+- Se não tem: basta uma VPS com Ubuntu 22.04 ou mais novo e 10 GB de disco livre. Sobre tamanho da máquina, diga só o que o README mediu. A VPS recomendada é a da ${p.nome}, parceira de infraestrutura do projeto: ${p.url}
   ${p.oferta}
   Recomende uma vez. Nunca diga que a VPS da parceira é obrigatória.
 - Se tem: siga para a instalação, sem mencionar a parceira.

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Comando } from "../../components/Comando.tsx";
 import { Folha, Parceira } from "../../components/Pecas.tsx";
 import { Texto } from "../../components/Texto.tsx";
-import { ANTES_DO_SERVIDOR, ATUALIZAR, CONFERIR_SAUDE, DEMO, INSTALAR_EM_UMA_LINHA, INSTALAR_PASSO_A_PASSO, PEDIDO_AO_ASSISTENTE } from "../../lib/comandos.ts";
+import { ANTES_DO_SERVIDOR, ATUALIZAR, DIAGNOSTICAR, CONFERIR_SAUDE, DEMO, INSTALAR_EM_UMA_LINHA, INSTALAR_PASSO_A_PASSO, PEDIDO_AO_ASSISTENTE } from "../../lib/comandos.ts";
 import { REPO, ler, noRepo, tabela } from "../../lib/fonte.ts";
 
 export const metadata: Metadata = {
   title: "Instalar",
-  description: "Do “ainda não tenho servidor” à primeira ligação: o que ter em mãos, o comando de instalação e o que se configura pela tela.",
+  description: "Do “ainda não tenho servidor” ao painel aberto: o que ter em mãos, o comando de instalação e o que se configura pela tela.",
 };
 
 export default async function Instalar() {
@@ -17,7 +17,7 @@ export default async function Instalar() {
     <Folha
       sobre="Guia de instalação"
       titulo="Instalar o DeskVoice na sua VPS"
-      intro="Um servidor é um computador alugado que fica ligado o tempo todo, e VPS é o nome do tipo mais comum. Este guia vai do “ainda não tenho servidor” até a primeira ligação. Os comandos são os mesmos do repositório, letra por letra."
+      intro="Um servidor é um computador alugado que fica ligado o tempo todo; VPS é o nome usual desse aluguel. Este guia vai do “ainda não tenho servidor” até o painel aberto. Os comandos são os mesmos do repositório, letra por letra."
     >
       <ol className="passos">
         <li>
@@ -41,7 +41,7 @@ export default async function Instalar() {
         </li>
         <li>
           <h2>Rode uma linha na VPS</h2>
-          <p>Entre na VPS por SSH e rode:</p>
+          <p>SSH é o jeito de abrir, do seu computador, um terminal dentro do servidor; a empresa da VPS informa o endereço e a senha. Docker é o programa que roda as partes do DeskVoice, e o instalador o instala se faltar. Entre na VPS por SSH e rode:</p>
           <Comando rotulo="Na VPS">{INSTALAR_EM_UMA_LINHA}</Comando>
           <p>Ela baixa o DeskVoice em <code>~/DeskVoice</code> e abre o instalador. Prefere ler antes de rodar? O mesmo resultado, passo a passo:</p>
           <Comando rotulo="Na VPS, passo a passo">{INSTALAR_PASSO_A_PASSO}</Comando>
@@ -76,7 +76,7 @@ export default async function Instalar() {
             <Comando rotulo="No seu computador">{DEMO}</Comando>
           </div>
         </div>
-        <p className="miudo">A instalação falhou ou a ligação ficou muda? <a href={`${REPO}/issues`}>Abra uma issue</a> com a saída de <code>bash install/diagnose.sh</code>.</p>
+        <p className="miudo">A instalação falhou ou a ligação ficou muda? <a href={`${REPO}/issues`}>Abra uma issue</a> com o arquivo que <code>{DIAGNOSTICAR}</code> gera. Senhas, chaves e tokens saem ocultos nele.</p>
       </section>
     </Folha>
   );

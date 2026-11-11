@@ -59,3 +59,8 @@ write(
   svg(64, 64, `<rect width="64" height="64" rx="14" fill="${DARK.bg}"/><g transform="translate(${32 - 32 * k} ${32 - 32 * k}) scale(${k})">${symbol(DARK)}</g>`, "DeskVoice"),
 );
 console.log("marca gerada em", OUT);
+
+// Os PNG saem do Chrome, a partir dos arquivos acima:
+//   capa (brand/deskvoice-cover.png e app/opengraph-image.png):
+//     chrome --headless --screenshot=capa.png --window-size=1280,640 scripts/capa.html
+//   avatar (brand/deskvoice-avatar.png): deskvoice-icon.svg renderizado em 512 × 512.

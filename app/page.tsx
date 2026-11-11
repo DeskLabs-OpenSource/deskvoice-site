@@ -3,13 +3,13 @@ import { Chamada } from "../components/Chamada.tsx";
 import { Comando } from "../components/Comando.tsx";
 import { Parceira, Secao } from "../components/Pecas.tsx";
 import { Texto } from "../components/Texto.tsx";
-import { INSTALAR_EM_UMA_LINHA } from "../lib/comandos.ts";
+import { INSTALAR_EM_UMA_LINHA, RODAR_DEMO } from "../lib/comandos.ts";
 import { REPO, type Estado, interpretarProvas, ler, lerChangelog, lerEstrelas, naPasta, noRepo } from "../lib/fonte.ts";
 
 const ESTADOS: { estado: Estado; nome: string; explica: string }[] = [
   { estado: "real", nome: "Provado numa instalação real", explica: "Rodou numa VPS de teste, do jeito e até o ponto que a linha descreve." },
   { estado: "simulacao", nome: "Provado em simulação", explica: "Coberto por teste de ponta a ponta com o motor simulado, que percorre a chamada inteira sem operadora e sem chave." },
-  { estado: "parcial", nome: "Provado em parte", explica: "A linha diz o que foi testado e o que falta." },
+  { estado: "parcial", nome: "Testado, sem prova completa", explica: "Fora das três categorias do README. Leia a linha: ela diz o que foi testado e o que falta." },
   { estado: "aguardando", nome: "Aguardando prova real", explica: "Implementado e testado contra servidores falsos, mas ainda sem uma ligação feita por operadora real." },
 ];
 
@@ -34,7 +34,7 @@ export default async function Inicial() {
             <ul className="selos">
               <li>Licença MIT</li>
               <li>Sem versão paga</li>
-              <li>Seus dados na sua VPS</li>
+              <li>Banco de dados na sua VPS</li>
             </ul>
             <p className="estado">
               <span className="data">v{ultima.versao}</span> Fundação em construção. <a href="#provas">Veja até onde cada capacidade foi provada</a>.
@@ -79,7 +79,7 @@ export default async function Inicial() {
         <div className="principios">
           <div>
             <h3>Silêncio é defeito</h3>
-            <p>Se o modelo de IA cai, quem ligou ouve um pedido de desculpa e é transferido, ou a chamada é encerrada. A tela mostra o que houve.</p>
+            <p>Se o modelo de IA cai, quem ligou ouve um sinal de aviso e é transferido, ou a chamada é encerrada. A tela mostra o que houve. Uma mensagem gravada no lugar do sinal ainda não existe: está em <a href={noRepo("SECURITY.md")}>SECURITY.md</a>.</p>
           </div>
           <div>
             <h3>Custo à vista</h3>
@@ -93,7 +93,7 @@ export default async function Inicial() {
         <p className="miudo">O caminho de uma ligação, da operadora ao painel, está em <a href={noRepo("ARCHITECTURE.md")}>ARCHITECTURE.md</a>.</p>
       </Secao>
 
-      <Secao id="provas" sobre="Não acredite. Confira." titulo="Até onde cada capacidade foi provada.">
+      <Secao id="provas" sobre="Provas" titulo="Até onde cada capacidade foi provada.">
         <p className="lead">
           O DeskVoice é uma fundação recém-lançada. Para ninguém instalar esperando o que ainda não foi provado, o repositório mantém esta tabela. O site a lê do <a href={`${noRepo("README.md")}#o-que-ele-faz-hoje`}>README</a>: quando uma prova muda lá, muda aqui.
         </p>
@@ -123,7 +123,7 @@ export default async function Inicial() {
       <Secao id="instalar" sobre="Instalação" titulo="Uma linha na sua VPS. O resto é pela tela.">
         <div className="duas">
           <div>
-            <Comando rotulo="Na VPS, por SSH">{INSTALAR_EM_UMA_LINHA}</Comando>
+            <Comando rotulo="No terminal da VPS">{INSTALAR_EM_UMA_LINHA}</Comando>
             <p>O instalador confere a máquina e a rede, faz poucas perguntas, gera todos os segredos, sobe os serviços, cria o primeiro usuário e mostra o endereço do painel. Você não edita variável de ambiente à mão.</p>
             <Link className="botao contorno" href="/instalar">Abrir o guia de instalação</Link>
           </div>
@@ -132,7 +132,7 @@ export default async function Inicial() {
             <li><strong>Um domínio apontado para a VPS.</strong> Opcional para testar.</li>
             <li><strong>Um tronco SIP com um número,</strong> da operadora de sua escolha.</li>
             <li><strong>Uma chave de IA de voz:</strong> Gemini ou OpenAI.</li>
-            <li><strong>Ainda sem nada disso?</strong> <code>pnpm demo</code> roda uma chamada inteira no seu computador.</li>
+            <li><strong>Ainda sem nada disso?</strong> <code>{RODAR_DEMO}</code> roda uma chamada inteira no seu computador.</li>
           </ul>
         </div>
       </Secao>
@@ -182,7 +182,7 @@ export default async function Inicial() {
         <div className="perguntas">
           <details>
             <summary>Preciso saber programar para instalar?</summary>
-            <p>Não. O instalador faz poucas perguntas e não pede edição de arquivo. Se você usa um assistente de código, ele conduz a instalação pela skill <code>deskvoice-instalar</code>. O caminho completo está em <Link href="/instalar">Instalar</Link>.</p>
+            <p>Programar, não. Você precisa abrir um terminal no servidor e colar um comando; o instalador faz poucas perguntas e não pede edição de arquivo. Se você usa um assistente de código, ele conduz a instalação pela skill <code>deskvoice-instalar</code>. O caminho completo está em <Link href="/instalar">Instalar</Link>.</p>
           </details>
           <details>
             <summary>Preciso do DeskcommCRM para usar o DeskVoice?</summary>
@@ -194,7 +194,7 @@ export default async function Inicial() {
           </details>
           <details>
             <summary>Onde ficam os dados das ligações?</summary>
-            <p>Num Postgres dentro da sua VPS. O sistema não depende de serviço de nuvem para subir.</p>
+            <p>Num Postgres dentro da sua VPS, e o sistema não depende de serviço de nuvem para subir. Durante a chamada, a conversa passa pelo provedor de IA que você contratou, sob os termos dele. Veja o guia de <a href={noRepo("docs/guides/conformidade-brasil.md")}>conformidade no Brasil</a>.</p>
           </details>
           <details>
             <summary>O DeskVoice grava o áudio das ligações?</summary>

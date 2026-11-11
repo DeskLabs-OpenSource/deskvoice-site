@@ -14,8 +14,8 @@ export default async function Guias() {
   return (
     <Folha
       sobre="Guias do assistente"
-      titulo="Peça em português. O assistente carrega o guia certo."
-      intro={<>O repositório traz {skills.length} skills: roteiros que o seu assistente de código (Claude Code, Codex, Cursor, Antigravity) lê antes de agir. Abra o repositório no assistente e descreva a situação. Esta página é montada a partir do cabeçalho de cada skill na <code>main</code>.</>}
+      titulo="Descreva a situação. O guia já está no repositório."
+      intro={<>O repositório traz {skills.length} skills: roteiros escritos para um assistente de código ler antes de agir. Abra o repositório no assistente, peça o assunto em português ou chame a skill pelo nome. Como cada assistente carrega as skills ainda não foi medido aqui. Esta página é montada a partir do cabeçalho de cada skill na <code>main</code>.</>}
     >
       <div className="skills">
         {skills.map((s) => (

@@ -761,7 +761,7 @@ img {
   padding: 0.9em 1.3em;
   border-radius: var(--dv-radius-sm);
   background: var(--hg-acao);
-  color: #fff;
+  color: var(--hg-fundo);
   font-weight: 700;
   line-height: 1.3;
   text-decoration: none;
@@ -1103,11 +1103,14 @@ img {
   border: 1px solid var(--dv-line);
   border-radius: var(--dv-radius-sm);
 }
+.arquivos a[data-fundo] {
+  background: var(--dv-bg);
+}
 .arquivos a[data-fundo="claro"] {
-  background: #f6f7f2;
+  color-scheme: light;
 }
 .arquivos a[data-fundo="escuro"] {
-  background: #14160f;
+  color-scheme: dark;
 }
 .arquivos .data {
   color: var(--dv-muted);

@@ -34,7 +34,7 @@ export default async function PaginaMarca() {
           {ARQUIVOS.map(([arquivo, nome, fundo]) => (
             <li key={arquivo}>
               <a href={`/marca/${arquivo}`} download data-fundo={fundo}>
-                <img src={`/marca/${arquivo}`} alt="" height={48} />
+                <img src={`/marca/${arquivo}`} alt={`Baixar: ${nome}`} height={48} />
               </a>
               <span>{nome}</span>
               <span className="data">{arquivo}</span>

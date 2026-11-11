@@ -1,3 +1,4 @@
+import { RODAR_DEMO } from "../lib/comandos.ts";
 import { noRepo } from "../lib/fonte.ts";
 
 /**
@@ -11,7 +12,7 @@ const PASSOS: { lado: "quem-ligou" | "agente" | "evento"; tom?: "vivo" | "ok"; r
   { lado: "agente", rotulo: "Lia", texto: "Sobre o desconto no pacote, eu não posso decidir sozinha." },
   { lado: "evento", tom: "vivo", rotulo: "request_approval", texto: "“Posso dar 10% de desconto no pacote de três sessões?” Uma pessoa responde pelo painel, com prazo, enquanto a Marina espera na linha." },
   { lado: "agente", rotulo: "Lia", texto: "Obrigada por aguardar, Marina. Já tenho a resposta da responsável." },
-  { lado: "evento", rotulo: "transfer_to_human", texto: "A ligação vai para a recepção com o resumo do que já foi dito." },
+  { lado: "evento", rotulo: "transfer_to_human", texto: "A ligação vai para a recepção. O resumo do que já foi dito fica no painel." },
   { lado: "evento", tom: "ok", rotulo: "depois da chamada", texto: "Resumo, avisos e tarefas de acompanhamento entram na fila. O custo fica registrado na linha do tempo." },
 ];
 
@@ -36,7 +37,7 @@ export function Chamada() {
         ))}
       </ol>
       <figcaption>
-        Este é o roteiro da <a href={noRepo("apps/voice/src/demo-script.ts")}>chamada de demonstração</a> do repositório. <code>pnpm demo</code> a executa no seu computador, sem chave de IA e sem operadora.
+        Este é o roteiro da <a href={noRepo("apps/voice/src/demo-script.ts")}>chamada de demonstração</a> do repositório. <code>{RODAR_DEMO}</code> a executa no seu computador, sem chave de IA e sem operadora.
       </figcaption>
     </figure>
   );

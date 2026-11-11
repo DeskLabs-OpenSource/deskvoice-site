@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   description: "Como fazer o primeiro PR no DeskVoice dar certo: por onde começar, o que o CI reprova e onde está cada regra.",
 };
 
-const LEITURAS: [string, string, string][] = [
-  ["CONTRIBUTING.md", "O guia de contribuição", "Ramos, commits, o que o CI reprova e o que só a revisão vê."],
-  ["AGENTS.md", "As convenções", "A autoridade para pessoa e para assistente de código."],
-  ["ARCHITECTURE.md", "A arquitetura", "O caminho de uma ligação, em uma página."],
-  ["ROADMAP.md", "O roadmap", "As frentes abertas, cada uma com tamanho e ponto de entrada no código."],
-  ["GOVERNANCE.md", "A governança", "Quem decide o quê, e a fila de merge."],
-  ["CREDITS.md", "Os créditos", "O que o projeto deve a outros projetos."],
+const LEITURAS: [string, string, string, string][] = [
+  [noRepo("CONTRIBUTING.md"), "CONTRIBUTING.md", "O guia de contribuição", "Ramos, commits, o que o CI reprova e o que só a revisão vê."],
+  [noRepo("AGENTS.md"), "AGENTS.md", "As convenções", "A autoridade para pessoa e para assistente de código."],
+  [noRepo("ARCHITECTURE.md"), "ARCHITECTURE.md", "A arquitetura", "O caminho de uma ligação, em uma página."],
+  [noRepo("ROADMAP.md"), "ROADMAP.md", "O roadmap", "As frentes abertas, cada uma com tamanho e ponto de entrada no código."],
+  [noRepo("GOVERNANCE.md"), "GOVERNANCE.md", "A governança", "Quem decide o quê, e a fila de merge."],
+  [noRepo("CREDITS.md"), "CREDITS.md", "Os créditos", "O que o projeto deve a outros projetos."],
 ];
 
 export default function Contribuir() {
@@ -54,9 +54,9 @@ export default function Contribuir() {
       <section className="alternativas">
         <h2>Onde está cada regra</h2>
         <ul className="leituras">
-          {LEITURAS.map(([arquivo, nome, texto]) => (
+          {LEITURAS.map(([href, arquivo, nome, texto]) => (
             <li key={arquivo}>
-              <a href={noRepo(arquivo)}><strong>{nome}</strong><span className="data">{arquivo}</span></a>
+              <a href={href}><strong>{nome}</strong><span className="data">{arquivo}</span></a>
               <p>{texto}</p>
             </li>
           ))}

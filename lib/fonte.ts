@@ -33,11 +33,19 @@ export function interpretarChangelog(md: string): Versao[] {
       versoes.push({ versao: v[1], data: v[2], secoes: [] });
       continue;
     }
+    // Cabeçalho de versão num formato novo (pré-versão, sem data) não pode cair dentro da versão de cima.
+    if (linha.startsWith("## ")) throw new Error(`CHANGELOG: cabeçalho de versão não reconhecido: ${linha}`);
     const atual = versoes.at(-1);
     if (!atual) continue;
-    if (linha.startsWith("### ")) atual.secoes.push({ titulo: linha.slice(4).trim(), itens: [] });
+    if (linha.startsWith("### ")) {
+      atual.secoes.push({ titulo: linha.slice(4).trim(), itens: [] });
+      continue;
+    }
+    const itens = atual.secoes.at(-1)?.itens;
     const item = /^- \*\*(.+?)\*\*\s*(.*)$/.exec(linha);
-    if (item && atual.secoes.length) atual.secoes.at(-1)!.itens.push({ titulo: item[1], corpo: item[2] });
+    if (item && itens) itens.push({ titulo: item[1], corpo: item[2] });
+    else if (linha.startsWith("- ")) throw new Error(`CHANGELOG: item sem título em negrito: ${linha}`);
+    else if (linha.trim() && itens?.length) itens.at(-1)!.corpo += ` ${linha.trim()}`;
   }
   if (versoes.length === 0) throw new Error("CHANGELOG sem nenhuma versão: o formato mudou?");
   return versoes;
@@ -51,10 +59,15 @@ export function tabela(md: string, primeiraColuna: string): string[][] {
   const linhas = md.split("\n");
   const inicio = linhas.findIndex((l) => l.startsWith(`| ${primeiraColuna} |`));
   if (inicio === -1) throw new Error(`Tabela "${primeiraColuna}" não encontrada na fonte`);
+  const celulas = (l: string) => l.slice(1, l.lastIndexOf("|")).split(" | ").map((c) => c.trim());
+  const colunas = celulas(linhas[inicio]).length;
   const corpo: string[][] = [];
   for (const l of linhas.slice(inicio + 2)) {
     if (!l.startsWith("|")) break;
-    corpo.push(l.slice(1, l.lastIndexOf("|")).split(" | ").map((c) => c.trim()));
+    const linha = celulas(l);
+    // Uma barra dentro da célula partiria a linha em colunas a mais; melhor falhar do que mostrar metade.
+    if (linha.length !== colunas) throw new Error(`Tabela "${primeiraColuna}": linha com ${linha.length} colunas, esperadas ${colunas}: ${l}`);
+    corpo.push(linha);
   }
   if (corpo.length === 0) throw new Error(`Tabela "${primeiraColuna}" veio vazia`);
   return corpo;
@@ -112,7 +125,7 @@ export async function lerSkills(): Promise<Skill[]> {
 export type Cor = { nome: string; claro: string; escuro: string };
 
 export function interpretarCores(css: string): Cor[] {
-  return [...css.matchAll(/(--dv-[a-z-]+):\s*light-dark\((#[0-9a-f]{6}),\s*(#[0-9a-f]{6})\)/g)].map((m) => ({ nome: m[1], claro: m[2], escuro: m[3] }));
+  return [...css.matchAll(/(--dv-[a-z-]+):\s*light-dark\((#[0-9a-f]{6}),\s*(#[0-9a-f]{6})\)/gi)].map((m) => ({ nome: m[1], claro: m[2], escuro: m[3] }));
 }
 
 // ── Número social ────────────────────────────────────────────────────────────
