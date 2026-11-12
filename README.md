@@ -44,6 +44,12 @@ pnpm build
 
 Os três rodam no CI a cada PR e a cada push na `main`.
 
+## Publicar
+
+O projeto na Vercel está ligado a este repositório: cada push na `main` publica em
+[deskvoice.com.br](https://deskvoice.com.br), e cada PR ganha um endereço de prévia. O build de lá
+roda `pnpm build`, com os testes de paridade antes. Se eles falham, a versão anterior continua no ar.
+
 ## Marca
 
 O contrato do site (quem visita, a personalidade, o que ele nunca faz) está em
