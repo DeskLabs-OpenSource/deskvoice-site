@@ -4,10 +4,10 @@ import { Comando } from "../components/Comando.tsx";
 import { Parceira, Secao } from "../components/Pecas.tsx";
 import { Texto } from "../components/Texto.tsx";
 import { INSTALAR_EM_UMA_LINHA, RODAR_DEMO } from "../lib/comandos.ts";
-import { REPO, type Estado, interpretarProvas, ler, lerChangelog, lerEstrelas, naPasta, noRepo } from "../lib/fonte.ts";
+import { REPO, type Estado, dataBr, interpretarProvas, ler, lerChangelog, lerEstrelas, naPasta, noRepo } from "../lib/fonte.ts";
 
 const ESTADOS: { estado: Estado; nome: string; explica: string }[] = [
-  { estado: "real", nome: "Provado numa instalação real", explica: "Rodou numa VPS de teste, do jeito e até o ponto que a linha descreve." },
+  { estado: "real", nome: "Provado numa instalação real", explica: "Rodou numa VPS de verdade, de teste ou a dedicada da parceira, do jeito e até o ponto que a linha descreve." },
   { estado: "simulacao", nome: "Provado em simulação", explica: "Coberto por teste de ponta a ponta com o motor simulado, que percorre a chamada inteira sem operadora e sem chave." },
   { estado: "parcial", nome: "Testado, sem prova completa", explica: "Fora das três categorias do README. Leia a linha: ela diz o que foi testado e o que falta." },
   { estado: "aguardando", nome: "Aguardando prova real", explica: "Implementado e testado contra servidores falsos, mas ainda sem uma ligação feita por operadora real." },
@@ -37,7 +37,7 @@ export default async function Inicial() {
               <li>Banco de dados na sua VPS</li>
             </ul>
             <p className="estado">
-              <span className="data">v{ultima.versao}</span> Fundação em construção. <a href="#provas">Veja até onde cada capacidade foi provada</a>.
+              <span className="data">v{ultima.versao}</span> Publicada em {dataBr(ultima.data)}. <Link href="/changelog">O que mudou</Link> · <a href="#provas">até onde cada capacidade foi provada</a>.
             </p>
           </div>
           <Chamada />
@@ -60,7 +60,7 @@ export default async function Inicial() {
           <li>
             <span className="data">durante</span>
             <h3>O agente executa ferramentas no meio da conversa</h3>
-            <p>Avisar alguém, pedir aprovação, transferir, chamar um webhook. Cada ferramenta é um arquivo, e cada uso vira um evento na linha do tempo da chamada.</p>
+            <p>Avisar alguém, pedir aprovação, transferir, mandar um WhatsApp, chamar um webhook. Cada ferramenta é um arquivo, e cada uso vira um evento na linha do tempo da chamada.</p>
             <a href={naPasta("packages/tools/src/tools")}>Ver as ferramentas no código</a>
           </li>
           <li>
@@ -95,7 +95,7 @@ export default async function Inicial() {
 
       <Secao id="provas" sobre="Provas" titulo="Até onde cada capacidade foi provada.">
         <p className="lead">
-          O DeskVoice é uma fundação recém-lançada. Para ninguém instalar esperando o que ainda não foi provado, o repositório mantém esta tabela. O site a lê do <a href={`${noRepo("README.md")}#o-que-ele-faz-hoje`}>README</a>: quando uma prova muda lá, muda aqui.
+          Instalação, atualização pela tela, backup e restauração já rodaram numa VPS real, e um contribuidor já fez ligações reais com o motor OpenAI Realtime. Para ninguém instalar esperando o que ainda não foi provado, o repositório mantém esta tabela. O site a lê do <a href={`${noRepo("README.md")}#o-que-ele-faz-hoje`}>README</a>: quando uma prova muda lá, muda aqui.
         </p>
         <div className="provas">
           {ESTADOS.map(({ estado, nome, explica }) => {
@@ -128,7 +128,7 @@ export default async function Inicial() {
             <Link className="botao contorno" href="/instalar">Abrir o guia de instalação</Link>
           </div>
           <ul className="lista-marcada">
-            <li><strong>Uma VPS com Ubuntu 22.04 ou mais novo.</strong> Qualquer VPS com Docker serve.</li>
+            <li><strong>Uma VPS com Ubuntu 22.04+, Debian 12+, AlmaLinux 9+ ou Rocky Linux 9+.</strong> Qualquer VPS com Docker serve.</li>
             <li><strong>Um domínio apontado para a VPS.</strong> Opcional para testar.</li>
             <li><strong>Um tronco SIP com um número,</strong> da operadora de sua escolha.</li>
             <li><strong>Uma chave de IA de voz:</strong> Gemini ou OpenAI.</li>
@@ -190,7 +190,7 @@ export default async function Inicial() {
           </details>
           <details>
             <summary>Já dá para atender ligações de uma operadora?</summary>
-            <p>O caminho está implementado e testado contra um Asterisk de verdade, mas a ligação por operadora real ainda aguarda prova. A <a href="#provas">tabela de provas</a> mostra o estado de cada capacidade.</p>
+            <p>O caminho está implementado e testado contra um Asterisk de verdade. Um contribuidor já fez ligações reais com o motor OpenAI Realtime numa instalação própria, mas a entrada por tronco SIP ainda não tem registro público. A <a href="#provas">tabela de provas</a> mostra o estado de cada capacidade.</p>
           </details>
           <details>
             <summary>Onde ficam os dados das ligações?</summary>
@@ -198,7 +198,7 @@ export default async function Inicial() {
           </details>
           <details>
             <summary>O DeskVoice grava o áudio das ligações?</summary>
-            <p>Ainda não. A fundação guarda a transcrição e a linha do tempo de eventos. Gravação com retenção configurável está no <a href={noRepo("ROADMAP.md")}>roadmap</a>, sem data.</p>
+            <p>Sabe gravar, com a gravação desligada de fábrica: cada organização liga em Configurações, e a tela diz quanto ocupa em disco. As gravações e as transcrições seguem o prazo de guarda que você define. Isso chega a quem instala na primeira versão publicada depois da 0.5.0; as <Link href="/changelog">notas de versão</Link> dizem qual. Antes de ligar, leia o guia de <a href={noRepo("docs/guides/conformidade-brasil.md")}>conformidade no Brasil</a>.</p>
           </details>
           <details>
             <summary>Posso instalar para clientes e cobrar por isso?</summary>
