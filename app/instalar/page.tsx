@@ -22,7 +22,7 @@ export default async function Instalar() {
       <ol className="passos">
         <li>
           <h2>Tenha um servidor</h2>
-          <p>Já tem uma VPS com Ubuntu 22.04 ou mais novo? Siga para o passo 2. Qualquer VPS com Docker funciona pelo mesmo comando, sem diferença de recurso.</p>
+          <p>Já tem uma VPS com Ubuntu 22.04+, Debian 12+, AlmaLinux 9+ ou Rocky Linux 9+? Siga para o passo 2. Qualquer VPS com Docker funciona pelo mesmo comando, sem diferença de recurso.</p>
           <p>Se ainda não tem, a recomendada é a da parceira do projeto:</p>
           <Parceira titulo="h3" />
           <p>Prefere um comando a uma página? No seu computador (macOS ou Linux), antes de ter servidor, este comando só informa: o que é preciso, o tamanho da máquina, o link da parceria e o comando seguinte. Não instala nem coleta nada.</p>
